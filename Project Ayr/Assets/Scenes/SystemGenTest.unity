@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.013370762, g: 0.02666021, b: 0.07235121, a: 1}
+  m_IndirectSpecularColor: {r: 0.013383229, g: 0.026659455, b: 0.07234941, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -245,8 +245,7 @@ MonoBehaviour:
   currentNeighborCheckIndex: 0
   bodyMesh: {fileID: -2432090755550338912, guid: 417e535f5ed1d8f4aaac1b39202f8ed3,
     type: 3}
-  bodyMaterial: {fileID: -3033667219593020291, guid: 417e535f5ed1d8f4aaac1b39202f8ed3,
-    type: 3}
+  bodyMaterial: {fileID: 2100000, guid: 77691fb4b0877c640a13540ddee9a9f2, type: 2}
 --- !u!4 &809762647
 Transform:
   m_ObjectHideFlags: 0

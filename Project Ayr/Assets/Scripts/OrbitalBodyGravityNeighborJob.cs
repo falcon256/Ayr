@@ -10,9 +10,9 @@ using Unity.Burst;
 
 [BurstCompile]
 
-public struct OrbitalBodyGravityNeighborJob : IJobForEach<Translation,VelocityComponent,MassComponent,OrbitalBodyNeighborComponent,OrbitalBodyTagComponent>
+public struct OrbitalBodyGravityNeighborJob : IJobForEach<Translation,VelocityComponent,MassComponent,OrbitalBodyNeighborComponent,OrbitalBodyTagComponent,TemperatureComponent>
 {
-
+    [NativeDisableParallelForRestriction] public NativeArray<TemperatureComponent> allTemperatures;
     [ReadOnly] [NativeDisableParallelForRestriction] public NativeArray<Entity> allBodies;
     [ReadOnly] [NativeDisableParallelForRestriction] public NativeArray<Translation> allTranslations;
     [ReadOnly] [NativeDisableParallelForRestriction] public NativeArray<VelocityComponent> allVelocities;
@@ -23,7 +23,7 @@ public struct OrbitalBodyGravityNeighborJob : IJobForEach<Translation,VelocityCo
     public const float GRAV = 6.6720e-08f;
 
     [BurstCompile]
-    public void Execute ([ReadOnly]ref Translation trans, ref VelocityComponent vel, ref MassComponent mass,ref OrbitalBodyNeighborComponent neighbors, [ReadOnly]ref OrbitalBodyTagComponent tag)
+    public void Execute ([ReadOnly]ref Translation trans, ref VelocityComponent vel, ref MassComponent mass,ref OrbitalBodyNeighborComponent neighbors, [ReadOnly]ref OrbitalBodyTagComponent tag, ref TemperatureComponent tempK)
     {
         //my other 5 body gravity is broken so I said screw it and did nbody.
         float3 vecDif = float3.zero;
@@ -62,7 +62,7 @@ public struct OrbitalBodyGravityNeighborJob : IJobForEach<Translation,VelocityCo
                 return;
             }
         }
-    
+        tempK.Value += math.length(vecDif) / (mass.Value + 1.0f);
         vel.Value += vecDif;
 
 

@@ -11,6 +11,7 @@ ScriptsOnlyBuild:
     Unity.Entities.Editor.dll:
     - Unity.Entities.Editor.EntityDebugger
     - Unity.Entities.Editor.EntitySelectionProxy
+    - Unity.Entities.Editor.GUIStyleAsset
     Unity.Postprocessing.Runtime.dll:
     - UnityEngine.Rendering.PostProcessing.AmbientOcclusion
     - UnityEngine.Rendering.PostProcessing.AutoExposure
@@ -76,45 +77,45 @@ ScriptsOnlyBuild:
     - Class: 109
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11346}
+      Script: {instanceID: 11342}
     - Class: 114
-      Script: {instanceID: 11382}
+      Script: {instanceID: 11378}
     - Class: 114
-      Script: {instanceID: 11500}
+      Script: {instanceID: 11496}
     - Class: 114
-      Script: {instanceID: 11618}
+      Script: {instanceID: 11614}
     - Class: 114
-      Script: {instanceID: 11740}
+      Script: {instanceID: 11736}
     - Class: 114
-      Script: {instanceID: 11776}
+      Script: {instanceID: 11772}
     - Class: 114
-      Script: {instanceID: 12100}
+      Script: {instanceID: 12096}
     - Class: 114
-      Script: {instanceID: 12534}
+      Script: {instanceID: 12532}
     - Class: 114
-      Script: {instanceID: 12700}
+      Script: {instanceID: 12698}
     - Class: 114
-      Script: {instanceID: 12794}
+      Script: {instanceID: 12792}
     - Class: 114
-      Script: {instanceID: 12908}
+      Script: {instanceID: 12906}
     - Class: 114
-      Script: {instanceID: 13378}
+      Script: {instanceID: 13380}
     - Class: 114
-      Script: {instanceID: 14142}
+      Script: {instanceID: 14146}
     - Class: 114
-      Script: {instanceID: 14160}
+      Script: {instanceID: 14164}
     - Class: 114
-      Script: {instanceID: 14568}
+      Script: {instanceID: 14574}
     - Class: 114
-      Script: {instanceID: 14688}
+      Script: {instanceID: 14694}
     - Class: 114
-      Script: {instanceID: 15048}
+      Script: {instanceID: 15054}
     - Class: 114
-      Script: {instanceID: 15214}
+      Script: {instanceID: 15220}
     - Class: 114
-      Script: {instanceID: 15420}
+      Script: {instanceID: 15426}
     - Class: 114
-      Script: {instanceID: 15490}
+      Script: {instanceID: 15496}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -332,7 +333,7 @@ ScriptsOnlyBuild:
     className: Scrollbar
   - hash:
       serializedVersion: 2
-      Hash: e2faf463891b49b38cef2156bffd1bd3
+      Hash: b0f73f444c65ffae6eec4863e48fb203
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SystemTestManager
@@ -1707,4 +1708,4 @@ ScriptsOnlyBuild:
   platform: 19
   scenePathNames:
   - Assets/Scenes/SystemGenTestOculus.unity
-  playerPath: C:/GameDev/Repos/Ayr/Project Ayr/nBody/Project Ayr.exe
+  playerPath: D:/Ayr/Project Ayr/nBody/Project Ayr.exe

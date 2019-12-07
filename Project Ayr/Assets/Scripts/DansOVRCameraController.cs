@@ -44,12 +44,12 @@ public class DansOVRCameraController : MonoBehaviour
     {
         if(Input.GetAxis("Oculus_CrossPlatform_PrimaryIndexTrigger")>0.9f)
         {
-            systemController.spawnEntity(leftHand.transform);
+            systemController.spawnEntity(leftHand.transform, 1.0f);
         }
 
         if (Input.GetAxis("Oculus_CrossPlatform_SecondaryIndexTrigger") > 0.9f)
         {
-            systemController.spawnEntity(rightHand.transform);
+            systemController.spawnEntity(rightHand.transform, 500.0f);
         }
 
     }

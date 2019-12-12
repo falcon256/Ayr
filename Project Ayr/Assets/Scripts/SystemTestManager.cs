@@ -66,13 +66,13 @@ public class SystemTestManager : MonoBehaviour
         }
         q.Dispose();
 
-        if(framesWithGoodPlanet>10000)
+        if(framesWithGoodPlanet>1000)
         {
             handText.GetComponent<TMPro.TextMeshProUGUI>().text = "You win.";
         }
         else if(framesWithGoodPlanet > 1)
         {
-            handText.GetComponent<TMPro.TextMeshProUGUI>().text = "Ticks until winning: "+(10000-framesWithGoodPlanet);
+            handText.GetComponent<TMPro.TextMeshProUGUI>().text = "Ticks until winning: "+(1000-framesWithGoodPlanet);
         }
         else
         {
@@ -89,6 +89,7 @@ public class SystemTestManager : MonoBehaviour
         NativeArray<MassComponent> massComponents = q.ToComponentDataArray<MassComponent>(Allocator.TempJob);
         NativeArray<Translation> translations = q.ToComponentDataArray<Translation>(Allocator.TempJob);
         bool found = false;
+        
         for (int i = 0; i < entities.Length; i++)
         {
             RenderMesh m = entityManager.GetSharedComponentData<RenderMesh>(entities[i]);
@@ -96,7 +97,7 @@ public class SystemTestManager : MonoBehaviour
             
             float temp = temperatureComponents[i].Value;
             float rad = massComponents[i].Value * temp;
-
+            
             if (solarRadiation < rad)
                 solarRadiation = rad;
 
@@ -142,11 +143,11 @@ public class SystemTestManager : MonoBehaviour
     {
         NativeArray<Entity> bodiesTemp = new NativeArray<Entity>(1, Allocator.Temp);
         entityManager.CreateEntity(orbitalBodyArchetype, bodiesTemp);
-        entityManager.SetComponentData(bodiesTemp[0], new Translation { Value = trans.position + (trans.forward * UnityEngine.Random.Range(0.0f, 10.0f)) });
-        entityManager.SetComponentData(bodiesTemp[0], new VelocityComponent { Value = (trans.forward * UnityEngine.Random.Range(0.0f, 0.1f))+(UnityEngine.Random.insideUnitSphere*0.00001f) });
+        entityManager.SetComponentData(bodiesTemp[0], new Translation { Value = trans.position + (trans.forward * UnityEngine.Random.Range(5.0f, 10.0f)) + (UnityEngine.Random.insideUnitSphere * 1.0f) });
+        entityManager.SetComponentData(bodiesTemp[0], new VelocityComponent { Value = (trans.forward * UnityEngine.Random.Range(0.0f, 0.01f))+(UnityEngine.Random.insideUnitSphere*0.000001f) });
         entityManager.SetComponentData(bodiesTemp[0], new Scale { Value = 0.01f });
-        entityManager.SetComponentData(bodiesTemp[0], new MassComponent { Value = (0.01f + UnityEngine.Random.Range(0.0f, 0.01f)) });
-        entityManager.SetComponentData(bodiesTemp[0], new TemperatureComponent { Value = (temp + UnityEngine.Random.Range(0.0f, 200.0f)) });
+        entityManager.SetComponentData(bodiesTemp[0], new MassComponent { Value = (0.1f + UnityEngine.Random.Range(0.0f, 0.1f)) });
+        entityManager.SetComponentData(bodiesTemp[0], new TemperatureComponent { Value = (temp + UnityEngine.Random.Range(0.0f, 1.0f)) });
         entityManager.SetSharedComponentData(bodiesTemp[0], new RenderMesh { mesh = bodyMesh, material = new Material(bodyMaterial) });
         bodiesTemp.Dispose();
     }
@@ -171,7 +172,7 @@ public class SystemTestManager : MonoBehaviour
             entityManager.SetComponentData(bodiesTemp[i],new Translation{Value = pos});
             entityManager.SetComponentData(bodiesTemp[i],new VelocityComponent{Value =math.normalize( new float3(-pos.z, 0,pos.x)*100.0f)/((pos.magnitude/10.0f)+1.0f) });
             entityManager.SetComponentData(bodiesTemp[i],new Scale { Value = 1.0f });
-            entityManager.SetComponentData(bodiesTemp[i],new MassComponent{Value = (1.0f+UnityEngine.Random.Range(0.0f,1.0f))});
+            entityManager.SetComponentData(bodiesTemp[i],new MassComponent{Value = (10.0f+UnityEngine.Random.Range(0.0f,10.0f))});
             entityManager.SetComponentData(bodiesTemp[i], new TemperatureComponent { Value = (0.0f + UnityEngine.Random.Range(0.0f, 3.0f)) });
             entityManager.SetSharedComponentData(bodiesTemp[i],new RenderMesh{mesh = bodyMesh, material = new Material(bodyMaterial) });
         }

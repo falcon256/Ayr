@@ -13,6 +13,9 @@ public struct OrbitalBodyMoveJob : IJobForEach<Translation,VelocityComponent,Mas
 {
     public void Execute (ref Translation trabs, [ReadOnly]ref VelocityComponent vel, [ReadOnly]ref MassComponent mass, [ReadOnly]ref OrbitalBodyTagComponent tag)
     {
-        trabs.Value += vel.Value;
+        float3 delta = vel.Value;
+        delta.y *= 0.99f;
+        delta.y -= trabs.Value.y * 0.01f;
+        trabs.Value += delta;
     }
 }

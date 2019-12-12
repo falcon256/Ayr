@@ -9,7 +9,7 @@ public class DansOVRCameraController : MonoBehaviour
     public GameObject rightHand = null;
     public SystemTestManager systemController = null;
     private float handDistance = 0;
-    private float totalScale = 1;
+    private float totalScale = 200;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,8 +19,8 @@ public class DansOVRCameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.transform.position += this.transform.forward*Input.GetAxis("Oculus_CrossPlatform_PrimaryThumbstickVertical") * Time.deltaTime * totalScale;
-        this.transform.position += this.transform.right * Input.GetAxis("Oculus_CrossPlatform_PrimaryThumbstickHorizontal") * Time.deltaTime * totalScale;
+        this.transform.position += this.transform.forward*Input.GetAxis("Oculus_CrossPlatform_PrimaryThumbstickVertical") * Time.deltaTime * totalScale*0.2f;
+        this.transform.position += this.transform.right * Input.GetAxis("Oculus_CrossPlatform_PrimaryThumbstickHorizontal") * Time.deltaTime * totalScale*0.2f;
         this.transform.Rotate(new Vector3(0, Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickHorizontal") * Time.deltaTime * 100.0f, 0));
         
         //Input.GetAxis("Oculus_CrossPlatform_SecondaryThumbstickVertical") * Time.deltaTime * 100.0f
@@ -42,14 +42,14 @@ public class DansOVRCameraController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(Input.GetAxis("Oculus_CrossPlatform_PrimaryIndexTrigger")>0.9f)
+        if(Input.GetAxis("Oculus_CrossPlatform_PrimaryIndexTrigger")>0.1f)
         {
-            systemController.spawnEntity(leftHand.transform, 1.0f);
+            systemController.spawnEntity(leftHand.transform, -1.0f * Input.GetAxis("Oculus_CrossPlatform_SecondaryIndexTrigger"));
         }
 
-        if (Input.GetAxis("Oculus_CrossPlatform_SecondaryIndexTrigger") > 0.9f)
+        if (Input.GetAxis("Oculus_CrossPlatform_SecondaryIndexTrigger") > 0.1f)
         {
-            systemController.spawnEntity(rightHand.transform, 500.0f);
+            systemController.spawnEntity(rightHand.transform, 2000.0f * Input.GetAxis("Oculus_CrossPlatform_SecondaryIndexTrigger"));
         }
 
     }

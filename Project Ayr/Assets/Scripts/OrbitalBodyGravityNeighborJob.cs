@@ -40,6 +40,7 @@ public struct OrbitalBodyGravityNeighborJob : IJobForEach<Translation,VelocityCo
             float emass = allMasses[i].Value;
             float3 eposition = allTranslations[i].Value;
             float3 evel = allVelocities[i].Value;
+            float etemp = allTemperatures[i].Value;
             if (math.distancesq(eposition, trans.Value) < 0.01f)
                 continue;
 
@@ -49,10 +50,12 @@ public struct OrbitalBodyGravityNeighborJob : IJobForEach<Translation,VelocityCo
             if (math.sqrt(distsq) < math.sqrt(((emass + mass.Value) * 0.62035f * math.PI) / 6.0f) && mass.Value > emass)
             {
                 float totalMass = mass.Value += emass;
+                float totalTemp = (mass.Value * tempK.Value + emass * etemp)/totalMass;
                 float3 vel1 = mass.Value * vel.Value;
                 float3 vel2 = emass * evel;
                 vel.Value = (vel1 + vel2) / totalMass;
                 mass.Value = totalMass;
+                tempK.Value = totalTemp;
                 CommandBuffer.DestroyEntity(i, ebody);
                 neighbors.neighborInfluence1 = 0;
                 neighbors.neightbor1Position = float3.zero;

@@ -15,7 +15,9 @@ public class WorldSerializer
     //GameObject gos;
     public void doSave()
     {
-        
+        // this is the right way once I have multiple worlds.
+        //lets not do that now.
+        /*
         int numWorlds = World.AllWorlds.Count;
         World[] worlds = new World[numWorlds];
         World.AllWorlds.CopyTo(worlds,0);
@@ -23,12 +25,22 @@ public class WorldSerializer
         {
             doWorldSerialization(worlds[i], i);
         }
+        */
+        doWorldSerialization(World.Active, 0);
     }
 
     public void doLoad()
     {
+        //World.DisposeAllWorlds();
+        //DefaultWorldInitialization.Initialize("Default World", false);
+        //World.Active = World.AllWorlds[0];
+
+        World.Active.EntityManager.DestroyEntity(World.Active.EntityManager.GetAllEntities());
+
         World.Active.EntityManager.PrepareForDeserialize();
-        doWorldDeserialization(Application.dataPath + "/save/" + 0 + ".wrld");
+        Debug.Log("Loading: "+Application.dataPath + "/save/" + 0 + ".wrld");
+        World world = doWorldDeserialization(Application.dataPath + "/save/" + 0 + ".wrld");
+        
     }
 
     public void doWorldSerialization(World world, int index)
@@ -44,20 +56,23 @@ public class WorldSerializer
         //Unity.Entities.Serialization.SerializeUtilityHybrid.Serialize(World.Active.EntityManager, writer, out gos);
         
         Unity.Entities.Serialization.SerializeUtility.SerializeWorld(world.EntityManager, writer, out serializedComponents);
+
+
+        
         if (serializedComponents.Length > 0)
         {
             Debug.LogError("You are trying to serialize shared fekking components!");
 
             Unity.Entities.Serialization.SerializeUtility.SerializeSharedComponents(world.EntityManager, writer, serializedComponents);
         }
-        //Debug.Log("" + serializedComponents.Length);
-        
+        Debug.Log("" + serializedComponents.Length);
         writer.Dispose();
 
     }
 
     public World doWorldDeserialization(string target)
     {
+        
         BinaryReader reader = new StreamBinaryReader(target);
         //Unity.Entities.Serialization.SerializeUtilityHybrid.Deserialize(World.Active.EntityManager, reader, gos);
         ExclusiveEntityTransaction transaction = World.Active.EntityManager.BeginExclusiveEntityTransaction();

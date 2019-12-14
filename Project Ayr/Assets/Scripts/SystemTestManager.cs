@@ -54,6 +54,7 @@ public class SystemTestManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        entityManager = World.Active.EntityManager;
         EntityQuery q = entityManager.CreateEntityQuery(typeof(OrbitalBodyNeighborComponent), typeof(Translation), typeof(Scale), typeof(MassComponent), typeof(VelocityComponent), typeof(OrbitalBodyTagComponent), typeof(TemperatureComponent));
         DoOrbitalBodyGravityNeighborUpdate(q);
         DoOrbitalBodyMovement(q);
@@ -92,7 +93,13 @@ public class SystemTestManager : MonoBehaviour
         
         for (int i = 0; i < entities.Length; i++)
         {
-            RenderMesh m = entityManager.GetSharedComponentData<RenderMesh>(entities[i]);
+            RenderMesh m;
+            if(entityManager.HasComponent<RenderMesh>(entities[i]))
+                m = entityManager.GetSharedComponentData<RenderMesh>(entities[i]);
+            else
+            {
+                continue;
+            }
 
             
             float temp = temperatureComponents[i].Value;
@@ -245,26 +252,40 @@ public class SystemTestManager : MonoBehaviour
     }
 
     public void serializeWorld()
-    {
+    {      
         EntityQuery eq = World.Active.EntityManager.CreateEntityQuery(typeof(RenderMesh));
-        NativeArray<Entity> entities = eq.ToEntityArray(Allocator.TempJob);
-        World.Active.EntityManager.RemoveComponent(entities, typeof(RenderMesh));
-        WorldSerializer ws = new WorldSerializer();
-        ws.doSave();
-        entities.Dispose();
-    }
-    public void deserializeWorld()
-    {
+        World.Active.EntityManager.RemoveComponent<RenderMesh>(eq);
+        //NativeArray<Entity> entities = eq.ToEntityArray(Allocator.TempJob);
+        //for (int i = 0; i < entities.Length; i++)
+        //{
+        //    World.Active.EntityManager.RemoveComponent(entities[i], typeof(RenderMesh));
+        //}
+        Debug.Log("Shared Components Remaining During Save: "+entityManager.GetSharedComponentCount());
+        
 
         WorldSerializer ws = new WorldSerializer();
+        ws.doSave();        
+        //entities.Dispose();              
+        World.Active.EntityManager.DestroyEntity(eq);
+        eq.Dispose();
+        deserializeWorld();
+    }
+
+    public void deserializeWorld()
+    {
+        EntityQuery eq = World.Active.EntityManager.CreateEntityQuery(typeof(RenderMesh));
+        World.Active.EntityManager.DestroyEntity(eq);
+        WorldSerializer ws = new WorldSerializer();
         ws.doLoad();
-        EntityQuery eq = World.Active.EntityManager.CreateEntityQuery(typeof(OrbitalBodyTagComponent));
-        NativeArray<Entity> entities = eq.ToEntityArray(Allocator.TempJob);
+        EntityQuery eq2 = World.Active.EntityManager.CreateEntityQuery(typeof(OrbitalBodyTagComponent));
+        NativeArray<Entity> entities = eq2.ToEntityArray(Allocator.TempJob);
         World.Active.EntityManager.AddComponent(entities, typeof(RenderMesh));
         for (int i = 0; i < entities.Length; i++)
         {
-            entityManager.SetSharedComponentData(entities[i], new RenderMesh { mesh = bodyMesh, material = bodyMaterial });
+            entityManager.SetSharedComponentData(entities[i], new RenderMesh { mesh = bodyMesh, material = new Material(bodyMaterial) });
         }
         entities.Dispose();
+        eq.Dispose();
+        eq2.Dispose();
     }
 }

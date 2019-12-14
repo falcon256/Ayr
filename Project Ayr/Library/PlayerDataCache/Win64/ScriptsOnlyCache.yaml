@@ -27,6 +27,8 @@ ScriptsOnlyBuild:
     - UnityEngine.Rendering.PostProcessing.PostProcessVolume
     - UnityEngine.Rendering.PostProcessing.ScreenSpaceReflections
     - UnityEngine.Rendering.PostProcessing.Vignette
+    Unity.Rider.Editor.dll:
+    - Packages.Rider.Editor.UnitTesting.CallbackData
     Unity.TextMeshPro.dll:
     - TMPro.TMP_FontAsset
     - TMPro.TMP_Settings
@@ -76,45 +78,45 @@ ScriptsOnlyBuild:
     - Class: 109
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 12762}
+      Script: {instanceID: 11352}
     - Class: 114
-      Script: {instanceID: 12798}
+      Script: {instanceID: 11388}
     - Class: 114
-      Script: {instanceID: 12916}
+      Script: {instanceID: 11506}
     - Class: 114
-      Script: {instanceID: 13034}
+      Script: {instanceID: 11626}
     - Class: 114
-      Script: {instanceID: 13156}
+      Script: {instanceID: 11748}
     - Class: 114
-      Script: {instanceID: 13190}
+      Script: {instanceID: 11786}
     - Class: 114
-      Script: {instanceID: 13510}
+      Script: {instanceID: 12108}
     - Class: 114
-      Script: {instanceID: 13944}
+      Script: {instanceID: 12548}
     - Class: 114
-      Script: {instanceID: 14108}
+      Script: {instanceID: 12714}
     - Class: 114
-      Script: {instanceID: 14200}
+      Script: {instanceID: 12808}
     - Class: 114
-      Script: {instanceID: 14314}
+      Script: {instanceID: 12922}
     - Class: 114
-      Script: {instanceID: 14782}
+      Script: {instanceID: 13404}
     - Class: 114
-      Script: {instanceID: 15536}
+      Script: {instanceID: 14174}
     - Class: 114
-      Script: {instanceID: 15554}
+      Script: {instanceID: 14192}
     - Class: 114
-      Script: {instanceID: 15956}
+      Script: {instanceID: 14606}
     - Class: 114
-      Script: {instanceID: 16076}
+      Script: {instanceID: 14726}
     - Class: 114
-      Script: {instanceID: 16430}
+      Script: {instanceID: 15088}
     - Class: 114
-      Script: {instanceID: 16596}
+      Script: {instanceID: 15256}
     - Class: 114
-      Script: {instanceID: 16800}
+      Script: {instanceID: 15462}
     - Class: 114
-      Script: {instanceID: 16870}
+      Script: {instanceID: 15532}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -1707,4 +1709,4 @@ ScriptsOnlyBuild:
   platform: 19
   scenePathNames:
   - Assets/Scenes/SystemGenTestOculus.unity
-  playerPath: C:/GameDev/Repos/Ayr/Project Ayr/nBody/Project Ayr.exe
+  playerPath: C:/GameDev/Repos/Ayr/Project Ayr/nBody3/Project Ayr.exe

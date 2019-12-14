@@ -52,5 +52,15 @@ public class DansOVRCameraController : MonoBehaviour
             systemController.spawnEntity(rightHand.transform, 2000.0f * Input.GetAxis("Oculus_CrossPlatform_SecondaryIndexTrigger"));
         }
 
+        if(Input.GetKeyUp(KeyCode.T) || OVRInput.Get(OVRInput.Button.Three))
+        {
+            systemController.serializeWorld();
+        }
+
+        if(Input.GetKeyUp(KeyCode.Y) || OVRInput.Get(OVRInput.Button.Four))
+        {
+            systemController.deserializeWorld();
+        }
+
     }
 }
